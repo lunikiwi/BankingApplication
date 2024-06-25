@@ -12,7 +12,17 @@ public class User {
         this.password = password;
         this.userbankAccount = userbankAccount;
         UserServices.addUser(this);
-        UserServices.writeUserToFile(getAllUsers(allUsers));
+
+        /*
+        Um die writeUserToFile-Methode mit der aktuellen Definition aufzurufen, müssen Sie einzelne User-Objekte übergeben,
+        nicht die gesamte Map. Da getAllUsers eine Map von String zu User zurückgibt, müssen Sie über die Map iterieren und
+        jedes User-Objekt einzeln an die writeUserToFile-Methode übergeben.
+         */
+        allUsers.put(username, this);
+
+        for (User user : allUsers.values()) {
+            UserServices.writeUserToFile(user);
+        }
     }
 
     public String getUsername() {
@@ -23,7 +33,7 @@ public class User {
         return password;
     }
 
-    public static Map<String, User> getAllUsers{
+    public static Map<String, User> getAllUsers() {
         return allUsers;
     }
 
