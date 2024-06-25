@@ -1,7 +1,3 @@
-import java.util.Scanner;
-
-//bad code:
-//no setter or getter methods
 class BankAccount {
     private double accountBalance;
     private double previousTransaction;
@@ -32,18 +28,6 @@ class BankAccount {
         }
     }
 
-    void displayOptions() {
-        System.out.println("===============================================");
-        System.out.println("Menü auswählen");
-        System.out.println("===============================================");
-        System.out.println("A. Kontostand anzeigen");
-        System.out.println("B. Einzahlung");
-        System.out.println("C. Auszahlung");
-        System.out.println("D. Vorherige Transaktion");
-        System.out.println("E. Beenden");
-        System.out.println("\n");
-    }
-
     boolean withdraw(double amountOut) {
         if(amountOut > accountBalance) {
             System.out.println("Nicht genug Geld auf dem Konto");
@@ -67,6 +51,20 @@ class BankAccount {
         else {
             System.out.println("Keine Transaktionen");
         }
+    }
+
+}
+    /*
+    void displayOptions() {
+        System.out.println("===============================================");
+        System.out.println("Menü auswählen");
+        System.out.println("===============================================");
+        System.out.println("A. Kontostand anzeigen");
+        System.out.println("B. Einzahlung");
+        System.out.println("C. Auszahlung");
+        System.out.println("D. Vorherige Transaktion");
+        System.out.println("E. Beenden");
+        System.out.println("\n");
     }
 
     void displayMenu() {
@@ -131,7 +129,6 @@ class BankAccount {
         }  while(selectedOption != 'E');
         //consoleScanner.close();
         //System.out.println("Danke, dass Sie unseren Service nutzen");
-    }
+    } */
 
 
-}
