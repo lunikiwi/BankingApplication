@@ -20,7 +20,6 @@ public class ApplicationGUI {
 		//defines the scope in such a way, that newAccount can be used more than in this area, reference/alias
 		//otherwise it only reaches after the curly brackets after setupButtons
 		this.bankAccount01 = newAccount;
-
 		setupMainFrame();
 		setupLabels();
 		setupButtons();
@@ -34,9 +33,9 @@ public class ApplicationGUI {
 
 	public void LoginWindow() {
 		usernameField = new JTextField("Benutzername", 15);
-		add(usernameField);
+		usernameField.add(usernameField);
 		passwordField = new JPasswordField("Passwort", 15);
-		add(passwordField);
+		usernameField.add(passwordField);
 
 	}
 

@@ -10,11 +10,11 @@ public class BankingApplication {
 
 	public static void main(String[] args) {
 		//call authenticateUser, creates new user, if ID isn't contained in HashMap
-		User.loadUserCredentials();
+		UserServices.loadUserCredentials();
 		BankAccount bankAccount = authenticateUser();
 		ApplicationGUI meinGui = new ApplicationGUI(bankAccount);
 		meinGui.show();
-		bankAccount.displayMenu();
+		//bankAccount.displayMenu();
 		closeConsoleScanner();
 
 	}
