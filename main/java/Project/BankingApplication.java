@@ -1,4 +1,4 @@
-//Ideas for this project: append GUI, transactions between different users
+package Project;//Ideas for this project: append GUI, transactions between different users
 
 import java.util.Random;
 import java.util.Scanner;

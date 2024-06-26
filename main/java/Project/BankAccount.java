@@ -1,3 +1,5 @@
+package Project;
+
 class BankAccount {
     public static double accountBalance;
     public static double previousTransaction;
