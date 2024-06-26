@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class User {
@@ -33,7 +32,7 @@ public class User {
         return password;
     }
 
-    public static Map<String, User> getAllUsers() {
+    public static User getAllUsers() {
         return allUsers;
     }
 

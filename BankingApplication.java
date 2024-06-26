@@ -26,7 +26,7 @@ public class BankingApplication {
 	public static BankAccount authenticateUser() {
     	System.out.println("Bitte Benutzername eingeben:");
    		String usernameInput = consoleScanner.nextLine();
-  		User user = User.getUsers(usernameInput);
+  		User user = User.getAllUsers();
 
 		if (user != null && user.getPassword().equals("hardcodepassword")) { //user instead of User!! big difference
 			return user.getBankAccount();

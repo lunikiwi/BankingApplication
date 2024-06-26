@@ -1,6 +1,6 @@
 class BankAccount {
-    private double accountBalance;
-    private double previousTransaction;
+    public static double accountBalance;
+    public static double previousTransaction;
     private String customerName;
     private String customerID;
 
@@ -16,42 +16,7 @@ class BankAccount {
         return customerID;
     }
 
-    public double getbalance() {
-        return accountBalance;
 
-    }
-
-    void deposit(double amountIn) {
-        if(amountIn > 0) {
-            accountBalance = accountBalance + amountIn;
-            previousTransaction = amountIn;
-        }
-    }
-
-    boolean withdraw(double amountOut) {
-        if(amountOut > accountBalance) {
-            System.out.println("Nicht genug Geld auf dem Konto");
-            return false;
-        }
-        else {
-            accountBalance = accountBalance - amountOut;
-            previousTransaction = - amountOut;
-            return true;
-        }
-    }
-
-    void getPreviousTransaction() {
-
-        if(previousTransaction > 0) {
-            System.out.println("Eingezahlt:" + previousTransaction);
-        }
-        else if(previousTransaction < 0) {
-            System.out.println("Ausgezahlt:" + previousTransaction);
-        }
-        else {
-            System.out.println("Keine Transaktionen");
-        }
-    }
 
 }
     /*

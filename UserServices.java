@@ -33,7 +33,6 @@ public class UserServices{
     }
 
     public static void addUser(User user) {
-        put(user.getUsername(), user); //Add User to Map with username as key
+        getAllUsers.
     }
-
 }
