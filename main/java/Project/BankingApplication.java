@@ -1,5 +1,6 @@
 package Project;//Ideas for this project: append GUI, transactions between different users
 
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -26,10 +27,10 @@ public class BankingApplication {
 	public static BankAccount authenticateUser() {
     	System.out.println("Bitte Benutzername eingeben:");
    		String usernameInput = consoleScanner.nextLine();
-  		User user = User.getAllUsers();
+  		Map<String, User> usertoauthenticate = User.getAllUsers(); //makes no sense, need 1 user not map of users
 
-		if (user != null && user.getPassword().equals("hardcodepassword")) { //user instead of User!! big difference
-			return user.getBankAccount();
+		if (usertoauthenticate != null && usertoauthenticate.equals(userpassword)) { //user instead of User!! big difference
+			return usertoauthenticate.getBankAccount();
 
 		}
 		else {

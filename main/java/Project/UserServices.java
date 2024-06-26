@@ -10,8 +10,9 @@ public class UserServices{
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String[] credentials = fileScanner.nextLine().split(";");
-                User user = new User(credentials[0], credentials[1], new BankAccount()); // Assuming BankAccount() has a default constructor
-                addUser(user);
+                // Assuming BankAccount() has a default constructor
+                User userloaded = new User(credentials[0], credentials[1], new BankAccount());
+                addUser(userloaded);
             }
             fileScanner.close();
         } catch (FileNotFoundException e) {
@@ -34,7 +35,7 @@ public class UserServices{
 
     }
 
-    public static void addUser(User user) {
-        getAllUsers.
+    public static void addUser(User usertoadd) {
+        User.getAllUsers();
     }
 }

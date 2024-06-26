@@ -2,19 +2,19 @@ package Project;
 
 public class TransactionsServices {
 
-    public double getbalance() {
+    public static double getbalance() {
         return BankAccount.accountBalance;
 
     }
 
-    void deposit(double amountIn) {
+    static void deposit(double amountIn) {
         if(amountIn > 0) {
             BankAccount.accountBalance = BankAccount.accountBalance + amountIn;
             BankAccount.previousTransaction = amountIn;
         }
     }
 
-    boolean withdraw(double amountOut) {
+    static boolean withdraw(double amountOut) {
         if(amountOut > BankAccount.accountBalance) {
             System.out.println("Nicht genug Geld auf dem Konto");
             return false;

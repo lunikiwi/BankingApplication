@@ -34,7 +34,7 @@ public class User {
         return password;
     }
 
-    public static User getAllUsers() {
+    public static Map<String, User> getAllUsers() {
         return allUsers;
     }
 

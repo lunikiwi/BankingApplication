@@ -10,7 +10,7 @@ import java.awt.*;
 public class ApplicationGUI {
 	private JTextField usernameField;
 	private JTextField passwordField;
-	private JFrame appFrame;
+	private static JFrame appFrame;
 	private BankAccount bankAccount01;
 	private JLabel nameLabel;
 	private JLabel idLabel;
@@ -25,6 +25,10 @@ public class ApplicationGUI {
 		setupMainFrame();
 		setupLabels();
 		setupButtons();
+	}
+
+	public static JFrame getAppFrame() {
+		return appFrame;
 	}
 
 	private void setupMainFrame() {
@@ -79,7 +83,7 @@ public class ApplicationGUI {
 	private void setupButtons() {
 		JButton btnShowBalance = setupShowBalanceButton();
 		JButton btnDeposit = setupDepositButton();
-		JButton btnWithdraw = setupWithdrawButton();
+		JButton btnWithdraw = Buttons.setupWithdrawButton();
 		JButton btnExit = setupExitButton();
 
 		JPanel buttonPanel = new JPanel();
@@ -110,7 +114,7 @@ public class ApplicationGUI {
 		JButton btnShowBalance = new JButton("Kontostand anzeigen");
 		btnShowBalance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double balance = bankAccount01.getbalance();
+				double balance = TransactionsServices.getbalance();
 				JOptionPane.showMessageDialog(appFrame, "Der Kontostand beträgt: " + balance + "€");
 
 			}
@@ -126,7 +130,7 @@ public class ApplicationGUI {
 					"Geben Sie den Einzahlungsbetrag ein:" , "Einzahlung", JOptionPane.PLAIN_MESSAGE);
 			try {
 				double depositAmount = Double.parseDouble(depositStr);
-				bankAccount01.deposit(depositAmount);
+				TransactionsServices.deposit(depositAmount);
 				JOptionPane.showMessageDialog(appFrame, "Einzahlung von " + depositAmount + "€ erfolgreich durchgeführt.");
 			} catch (NumberFormatException nfe) {
 				JOptionPane.showMessageDialog(appFrame,
@@ -136,27 +140,6 @@ public class ApplicationGUI {
 	return btnDeposit;
 	}
 
-	private JButton setupWithdrawButton() {
-		//Button für C
-		JButton btnWithdraw = new JButton("Auszahlen");
-		btnWithdraw.addActionListener(e -> {
-			String WithdrawStr = JOptionPane.showInputDialog(appFrame,
-					"Geben Sie den Auszahlungsbetrag ein:" , "Auszahlung", JOptionPane.PLAIN_MESSAGE);
-			try {
-				double withdrawAmount = Double.parseDouble(WithdrawStr);
-				boolean success = bankAccount01.withdraw(withdrawAmount);
-					if (success) {
-						JOptionPane.showMessageDialog(appFrame, "Auszahlung von " + withdrawAmount + "€ erfolgreich durchgeführt.");
-					} else {
-						JOptionPane.showMessageDialog(appFrame, "Nicht genug Geld auf dem Konto", "Fehler", JOptionPane.ERROR_MESSAGE);
-					}
-			} catch (NumberFormatException nfe) {
-				JOptionPane.showMessageDialog(appFrame,
-						"Ungültiges Format. Bitte geben Sie eine gültige Zahl ein.", "Fehler", JOptionPane.ERROR_MESSAGE);
-			}
-		});
-	return btnWithdraw;
-	}
 	private JButton setupExitButton() {
 		JButton btnExit = new JButton("Beenden");
 		btnExit.addActionListener(e -> showExitMessage());

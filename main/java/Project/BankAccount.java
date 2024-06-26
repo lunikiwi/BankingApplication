@@ -6,10 +6,11 @@ class BankAccount {
     private String customerName;
     private String customerID;
 
-    BankAccount(String customerName, String customerID) {
+    public BankAccount(String customerName, String customerID) {
         this.customerName = customerName;
         this.customerID = customerID;
     }
+
     public String getcustomerName() {
         return customerName;
     }
