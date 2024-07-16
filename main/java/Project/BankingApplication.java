@@ -13,6 +13,7 @@ public class BankingApplication {
 		//call authenticateUser, creates new user, if ID isn't contained in HashMap
 		UserServices.loadUserCredentials();
 		BankAccount bankAccount = authenticateUser();
+
 		ApplicationGUI meinGui = new ApplicationGUI(bankAccount);
 		meinGui.show();
 		//bankAccount.displayMenu();

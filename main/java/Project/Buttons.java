@@ -1,6 +1,7 @@
 package Project;
 import javax.swing.*;
-
+import java.awt.*;
+import java.awt.event.*;
 
 public class Buttons {
     public static JButton setupWithdrawButton() {
@@ -25,4 +26,32 @@ public class Buttons {
         });
         return btnWithdraw;
     }
+
+    private void showExitMessage() {
+        JDialog exitDialog = new JDialog(App);
+        JLabel exitMessageLabel = new JLabel("Danke, dass Sie unseren Service nutzen", SwingConstants.CENTER);
+        JPanel testPanel = new JPanel(new BorderLayout());
+
+        testPanel.add(exitMessageLabel, BorderLayout.CENTER);
+        exitDialog.setContentPane(testPanel);
+        exitDialog.setBounds(500, 150, 300, 200);
+        exitDialog.setVisible(true);
+
+        Timer timer = new Timer(2000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exitDialog.setVisible(false);
+                System.exit(0);
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    private JButton setupExitButton() {
+        JButton btnExit = new JButton("Beenden");
+        btnExit.addActionListener(e -> showExitMessage());
+        return btnExit;
+    }
+
 }

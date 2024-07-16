@@ -57,26 +57,7 @@ public class ApplicationGUI {
 
 	}
 
-	private void showExitMessage() {
-		JDialog exitDialog = new JDialog(appFrame);
-		JLabel exitMessageLabel = new JLabel("Danke, dass Sie unseren Service nutzen", SwingConstants.CENTER);
-		JPanel testPanel = new JPanel(new BorderLayout());
 
-		testPanel.add(exitMessageLabel, BorderLayout.CENTER);
-		exitDialog.setContentPane(testPanel);
-		exitDialog.setBounds(500, 150, 300, 200);
-		exitDialog.setVisible(true);
-
-		Timer timer = new Timer(2000, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				exitDialog.setVisible(false);
-				System.exit(0);
-			}
-		});
-		timer.setRepeats(false);
-		timer.start();
-	}
 
 
 
@@ -140,11 +121,7 @@ public class ApplicationGUI {
 	return btnDeposit;
 	}
 
-	private JButton setupExitButton() {
-		JButton btnExit = new JButton("Beenden");
-		btnExit.addActionListener(e -> showExitMessage());
-		return btnExit;
-	}
+
 
 	public void show() {
 		appFrame.setPreferredSize(new Dimension(1000, 1000));
