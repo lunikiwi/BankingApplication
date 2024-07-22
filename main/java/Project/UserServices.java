@@ -10,7 +10,6 @@ public class UserServices{
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String[] credentials = fileScanner.nextLine().split(";");
-                // Assuming BankAccount() has a default constructor
                 User userloaded = new User(credentials[0], credentials[1], new BankAccount());
                 addUser(userloaded);
             }
@@ -21,7 +20,6 @@ public class UserServices{
         }
 
     }
-    //for testing the path write a unit test here, if the writing works correctly
     public static void writeUserToFile(User user) {
         String dirName = "C:\\Develop\\Eigenes";
         try {

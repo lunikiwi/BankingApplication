@@ -19,7 +19,7 @@ public class Buttons {
                 }
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(ApplicationGUI.getAppFrame(),
-                        "Wrong format. Please enter a valid amount ", "Error", JOptionPane.ERROR_MESSAGE);
+                        "Invalid Input. Please enter a valid amount ", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         return btnWithdraw;
@@ -59,7 +59,7 @@ public class Buttons {
         btnShowBalance.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 double balance = TransactionsServices.getbalance();
-                JOptionPane.showMessageDialog(appFrame, "The balance is: " + balance + "€");
+                JOptionPane.showMessageDialog(ApplicationGUI.getAppFrame() , "The balance is: " + balance + "€");
 
             }
         });
@@ -70,15 +70,15 @@ public class Buttons {
         //Button für B
         JButton btnDeposit = new JButton("Deposit");
         btnDeposit.addActionListener(e -> {
-            String depositStr = JOptionPane.showInputDialog(appFrame,
+            String depositStr = JOptionPane.showInputDialog(ApplicationGUI.getAppFrame(),
                     "Please enter the amount you want to deposit:" , "deposit", JOptionPane.PLAIN_MESSAGE);
             try {
                 double depositAmount = Double.parseDouble(depositStr);
                 TransactionsServices.deposit(depositAmount);
-                JOptionPane.showMessageDialog(appFrame, "Deposited " + depositAmount + "€ successfully");
+                JOptionPane.showMessageDialog(ApplicationGUI.getAppFrame(), "Deposited " + depositAmount + "€ successfully");
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(appFrame,
-                        "Wrong format. Please enter a valid amount", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(ApplicationGUI.getAppFrame(),
+                        "Invalid Input. Please enter a valid amount", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         return btnDeposit;

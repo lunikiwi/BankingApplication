@@ -7,16 +7,26 @@ public class ApplicationGUI {
 	private JTextField usernameField;
 	private JTextField passwordField;
 	private static JFrame appFrame;
-	private BankAccount bankAccount01;
+	private BankAccount bankAccount;
 	private JLabel nameLabel;
 	private JLabel idLabel;
-	GridBagLayout gbl = new GridBagLayout();
+	//GridBagLayout gbl = new GridBagLayout();
 
+	/*
 	public ApplicationGUI(BankAccount newAccount) {
 		this.bankAccount01 = newAccount;
 		setupMainFrame();
 		setupLabels();
 		setupButtons();
+	}
+	*/
+
+	public ApplicationGUI(String customerName, String customerID) {
+		this.bankAccount = new BankAccount(customerName, customerID);
+		setupMainFrame();
+		setupLabels();
+		setupButtons();
+
 	}
 
 	private void setupMainFrame() {
@@ -38,8 +48,8 @@ public class ApplicationGUI {
 	}
 
 	private void setupLabels() {
-		nameLabel = new JLabel("Welcome. You're currently logged in as " + bankAccount01.getcustomerName());
-		idLabel = new JLabel("UserID: " + bankAccount01.getcustomerID());
+		nameLabel = new JLabel("Welcome. You're currently logged in as " + bankAccount.getcustomerName());
+		idLabel = new JLabel("UserID: " + bankAccount.getcustomerID());
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.PAGE_AXIS));
 		labelPanel.add(nameLabel);

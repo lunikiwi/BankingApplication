@@ -14,8 +14,8 @@ public class BankingApplication {
 		UserServices.loadUserCredentials();
 		BankAccount bankAccount = authenticateUser();
 
-		ApplicationGUI meinGui = new ApplicationGUI(bankAccount);
-		meinGui.show();
+		ApplicationGUI myGui = new ApplicationGUI(bankAccount);
+		myGui.show();
 		//bankAccount.displayMenu();
 		closeConsoleScanner();
 

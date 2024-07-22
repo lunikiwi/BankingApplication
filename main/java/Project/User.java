@@ -14,11 +14,6 @@ public class User {
         this.userbankAccount = userbankAccount;
         UserServices.addUser(this);
 
-        /*
-        Um die writeUserToFile-Methode mit der aktuellen Definition aufzurufen, müssen Sie einzelne User-Objekte übergeben,
-        nicht die gesamte Map. Da getAllUsers eine Map von String zu User zurückgibt, müssen Sie über die Map iterieren und
-        jedes User-Objekt einzeln an die writeUserToFile-Methode übergeben.
-         */
         allUsers.put(username, this);
 
         for (User user : allUsers.values()) {
