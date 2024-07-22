@@ -1,11 +1,7 @@
 package Project;
 
 import javax.swing.*;
-//import java.awt.FlowLayout;
-import java.awt.event.*;
 import java.awt.*;
-
-//Login as a Popup for GUI
 
 public class ApplicationGUI {
 	private JTextField usernameField;
@@ -16,38 +12,34 @@ public class ApplicationGUI {
 	private JLabel idLabel;
 	GridBagLayout gbl = new GridBagLayout();
 
-	//newAccount is the alias for BankAccount, reference to the object, known under this name in the constructor
-	//constructor of object ApplicationGUI, defines what happens when an instance is created
 	public ApplicationGUI(BankAccount newAccount) {
-		//defines the scope in such a way, that newAccount can be used more than in this area, reference/alias
-		//otherwise it only reaches after the curly brackets after setupButtons
 		this.bankAccount01 = newAccount;
 		setupMainFrame();
 		setupLabels();
 		setupButtons();
 	}
 
-	public static JFrame getAppFrame() {
-		return appFrame;
-	}
-
 	private void setupMainFrame() {
-		appFrame = new JFrame("Bankprogramm");
+		appFrame = new JFrame("Banking Application");
 		appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		appFrame.setLayout(new BorderLayout());
 	}
 
+	public static JFrame getAppFrame() {
+		return appFrame;
+	}
+
 	public void LoginWindow() {
-		usernameField = new JTextField("Benutzername", 15);
+		usernameField = new JTextField("User name", 15);
 		usernameField.add(usernameField);
-		passwordField = new JPasswordField("Passwort", 15);
+		passwordField = new JPasswordField("Password", 15);
 		usernameField.add(passwordField);
 
 	}
 
 	private void setupLabels() {
-		nameLabel = new JLabel("Guten Tag. Sie sind als " + bankAccount01.getcustomerName() +  " angemeldet.");
-		idLabel = new JLabel("BenutzerID: " + bankAccount01.getcustomerID());
+		nameLabel = new JLabel("Welcome. You're currently logged in as " + bankAccount01.getcustomerName());
+		idLabel = new JLabel("UserID: " + bankAccount01.getcustomerID());
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.PAGE_AXIS));
 		labelPanel.add(nameLabel);
@@ -57,70 +49,37 @@ public class ApplicationGUI {
 
 	}
 
-
-
-
-
 	private void setupButtons() {
-		JButton btnShowBalance = setupShowBalanceButton();
-		JButton btnDeposit = setupDepositButton();
+		JButton btnShowBalance = Buttons.setupDepositButton();
+		JButton btnDeposit = Buttons.setupShowBalanceButton();
 		JButton btnWithdraw = Buttons.setupWithdrawButton();
-		JButton btnExit = setupExitButton();
+		JButton btnExit = Buttons.setupExitButton();
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridBagLayout());
 
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.anchor = GridBagConstraints.CENTER;
-		gbc.insets = new Insets(10, 10, 10, 10);
+		GridBagConstraints gbc = createGbc();
 
-		gbc.gridy = 0;
-		buttonPanel.add(btnShowBalance, gbc);
-
-		gbc.gridy = 1;
-		buttonPanel.add(btnDeposit, gbc);
-
-		gbc.gridy = 2;
-		buttonPanel.add(btnWithdraw, gbc);
-
-		gbc.gridy = 3;
-		buttonPanel.add(btnExit, gbc);
+		addButtonToPanel(buttonPanel, btnShowBalance, gbc, 0);
+		addButtonToPanel(buttonPanel, btnDeposit, gbc, 1);
+		addButtonToPanel(buttonPanel, btnWithdraw, gbc, 2);
+		addButtonToPanel(buttonPanel, btnExit, gbc, 3);
 
 		appFrame.add(buttonPanel, BorderLayout.CENTER);
 
 	}
 
-	private JButton setupShowBalanceButton() {
-		//Button für Option A
-		JButton btnShowBalance = new JButton("Kontostand anzeigen");
-		btnShowBalance.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				double balance = TransactionsServices.getbalance();
-				JOptionPane.showMessageDialog(appFrame, "Der Kontostand beträgt: " + balance + "€");
-
-			}
-		});
-	return btnShowBalance;
+	private GridBagConstraints createGbc() {
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.insets = new Insets(10, 10, 10, 10);
+		return gbc;
 	}
 
-	private JButton setupDepositButton() {
-		//Button für B
-		JButton btnDeposit = new JButton("Einzahlen");
-		btnDeposit.addActionListener(e -> {
-			String depositStr = JOptionPane.showInputDialog(appFrame,
-					"Geben Sie den Einzahlungsbetrag ein:" , "Einzahlung", JOptionPane.PLAIN_MESSAGE);
-			try {
-				double depositAmount = Double.parseDouble(depositStr);
-				TransactionsServices.deposit(depositAmount);
-				JOptionPane.showMessageDialog(appFrame, "Einzahlung von " + depositAmount + "€ erfolgreich durchgeführt.");
-			} catch (NumberFormatException nfe) {
-				JOptionPane.showMessageDialog(appFrame,
-						"Ungültiges Format. Bitte geben Sie eine gültige Zahl ein.", "Fehler", JOptionPane.ERROR_MESSAGE);
-			}
-		});
-	return btnDeposit;
+	private void addButtonToPanel(JPanel panel, JButton button, GridBagConstraints gbc, int gridy) {
+		gbc.gridy = gridy;
+		panel.add(button, gbc);
 	}
-
 
 
 	public void show() {

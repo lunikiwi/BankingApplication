@@ -16,7 +16,7 @@ public class TransactionsServices {
 
     static boolean withdraw(double amountOut) {
         if(amountOut > BankAccount.accountBalance) {
-            System.out.println("Nicht genug Geld auf dem Konto");
+            System.out.println("Account balance too low");
             return false;
         }
         else {
@@ -29,13 +29,13 @@ public class TransactionsServices {
     void getPreviousTransaction() {
 
         if(BankAccount.previousTransaction > 0) {
-            System.out.println("Eingezahlt:" + BankAccount.previousTransaction);
+            System.out.println("Deposited:" + BankAccount.previousTransaction);
         }
         else if(BankAccount.previousTransaction < 0) {
-            System.out.println("Ausgezahlt:" + BankAccount.previousTransaction);
+            System.out.println("Withdrew:" + BankAccount.previousTransaction);
         }
         else {
-            System.out.println("Keine Transaktionen");
+            System.out.println("No transactions");
         }
     }
 

@@ -26,7 +26,7 @@ public class BankingApplication {
 	}
 
 	public static BankAccount authenticateUser() {
-    	System.out.println("Bitte Benutzername eingeben:");
+    	System.out.println("Please enter your username:");
    		String usernameInput = consoleScanner.nextLine();
   		Map<String, User> usertoauthenticate = User.getAllUsers(); //makes no sense, need 1 user not map of users
 
@@ -35,8 +35,8 @@ public class BankingApplication {
 
 		}
 		else {
-			System.out.println("Benutzer existiert nicht, neuer Benutzer wird erstellt");
-        	System.out.println("Bitte geben Sie Ihren Vor- und Nachnamen ein:");
+			System.out.println("User doesn't exist, new user is being created");
+        	System.out.println("Please enter your first and last name:");
 
 			String name = consoleScanner.nextLine();
        	 	String randomID = generateRandomID();
@@ -44,7 +44,7 @@ public class BankingApplication {
 
 			User newUser = new User(usernameInput, "hardcodedpassword", newAccount);
 
-        	System.out.println("Ihr neuer Benutzername lautet: " + usernameInput);
+        	System.out.println("Your new user name is: " + usernameInput);
         	return newUser.getBankAccount();
         }
 
