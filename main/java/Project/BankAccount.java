@@ -5,6 +5,7 @@ public class BankAccount {
     public static double previousTransaction;
     private String customerName;
     private String customerID;
+    private String accountType;
 
     public BankAccount(String customerName, String customerID) {
         this.customerName = customerName;
@@ -18,6 +19,7 @@ public class BankAccount {
     public String getcustomerID() {
         return customerID;
     }
+
 
 }
 

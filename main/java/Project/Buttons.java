@@ -25,6 +25,13 @@ public class Buttons {
         return btnWithdraw;
     }
 
+
+    public static JButton setupExitButton() {
+        JButton btnExit = new JButton("Exit");
+        btnExit.addActionListener(e -> showExitMessage());
+        return btnExit;
+    }
+
     private static void showExitMessage() {
         JDialog exitDialog = new JDialog();
         JLabel exitMessageLabel = new JLabel("Thank you for using our service", SwingConstants.CENTER);
@@ -46,15 +53,8 @@ public class Buttons {
         timer.start();
     }
 
-    public static JButton setupExitButton() {
-        JButton btnExit = new JButton("Exit");
-        btnExit.addActionListener(e -> showExitMessage());
-        return btnExit;
-    }
-
 
     public static JButton setupShowBalanceButton() {
-        //Button für Option A
         JButton btnShowBalance = new JButton("Show account balance");
         btnShowBalance.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

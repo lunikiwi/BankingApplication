@@ -10,41 +10,29 @@ public class ApplicationGUI {
 	private BankAccount bankAccount;
 	private JLabel nameLabel;
 	private JLabel idLabel;
-	//GridBagLayout gbl = new GridBagLayout();
-
-	/*
-	public ApplicationGUI(BankAccount newAccount) {
-		this.bankAccount01 = newAccount;
-		setupMainFrame();
-		setupLabels();
-		setupButtons();
-	}
-	*/
 
 	public ApplicationGUI(String customerName, String customerID) {
 		this.bankAccount = new BankAccount(customerName, customerID);
 		setupMainFrame();
 		setupLabels();
 		setupButtons();
-
+		setupLoginWindow();
 	}
 
+	public static JFrame getAppFrame() {
+		return appFrame;
+	}
 	private void setupMainFrame() {
 		appFrame = new JFrame("Banking Application");
 		appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		appFrame.setLayout(new BorderLayout());
 	}
 
-	public static JFrame getAppFrame() {
-		return appFrame;
-	}
-
-	public void LoginWindow() {
+	public void setupLoginWindow() {
 		usernameField = new JTextField("User name", 15);
 		usernameField.add(usernameField);
 		passwordField = new JPasswordField("Password", 15);
 		usernameField.add(passwordField);
-
 	}
 
 	private void setupLabels() {
@@ -54,7 +42,6 @@ public class ApplicationGUI {
 		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.PAGE_AXIS));
 		labelPanel.add(nameLabel);
 		labelPanel.add(idLabel);
-		//labelPanel.add(exit)
 		appFrame.add(labelPanel, BorderLayout.NORTH);
 
 	}
@@ -69,14 +56,11 @@ public class ApplicationGUI {
 		buttonPanel.setLayout(new GridBagLayout());
 
 		GridBagConstraints gbc = createGbc();
-
 		addButtonToPanel(buttonPanel, btnShowBalance, gbc, 0);
 		addButtonToPanel(buttonPanel, btnDeposit, gbc, 1);
 		addButtonToPanel(buttonPanel, btnWithdraw, gbc, 2);
 		addButtonToPanel(buttonPanel, btnExit, gbc, 3);
-
 		appFrame.add(buttonPanel, BorderLayout.CENTER);
-
 	}
 
 	private GridBagConstraints createGbc() {
@@ -90,7 +74,6 @@ public class ApplicationGUI {
 		gbc.gridy = gridy;
 		panel.add(button, gbc);
 	}
-
 
 	public void show() {
 		appFrame.setPreferredSize(new Dimension(1000, 1000));

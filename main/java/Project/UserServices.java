@@ -1,7 +1,10 @@
 package Project;
 
 import java.io.*;
+import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
+
 
 public class UserServices{
     public static void loadUserCredentials() {
@@ -15,7 +18,6 @@ public class UserServices{
             }
             fileScanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("User credentials file not found.");
             e.printStackTrace();
         }
 
@@ -36,4 +38,47 @@ public class UserServices{
     public static void addUser(User usertoadd) {
         User.getAllUsers();
     }
+
+    public static BankAccount authenticateUser() {
+        String usernameInput = consoleScanner.nextLine();
+        Map<String, User> usertoauthenticate = User.getAllUsers(); //makes no sense, need 1 user not map of users
+
+        if (usertoauthenticate != null && usertoauthenticate.equals(userpassword)) { //user instead of User!! big difference
+            return usertoauthenticate.getBankAccount();
+
+        }
+        else {
+
+            String name = consoleScanner.nextLine();
+            String randomID = generateRandomID();
+            BankAccount newAccount = new BankAccount(name, randomID);
+
+            User newUser = new User(usernameInput, "hardcodedpassword", newAccount);
+            return newUser.getBankAccount();
+        }
+
+    }
+
+    public static String generateRandomID() {
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String digits = "0123456789";
+        StringBuilder randomID = new StringBuilder();
+        randomID.append(alphabet.charAt(new Random().nextInt(alphabet.length())));
+        randomID.append(alphabet.charAt(new Random().nextInt(alphabet.length())));
+
+        for (int i = 0; i < 4; i++) {
+            randomID.append(digits.charAt(new Random().nextInt(digits.length())));
+
+        }
+
+        randomID.append(alphabet.charAt(new Random().nextInt(alphabet.length())));
+        randomID.append(alphabet.charAt(new Random().nextInt(alphabet.length())));
+        return randomID.toString();
+    }
+
+
+
+
+
+
 }
