@@ -1,11 +1,10 @@
 package Project;
 
-
 public class BankingApplication {
 
 	public static void main(String[] args) {
-		UserServices.loadUserCredentials();
-		ApplicationGUI applicationGUI = new ApplicationGUI(customerName, customerID);
+		CustomerServices.loadCustomerCredentials();
+		ApplicationGUI applicationGUI = new ApplicationGUI(null, null);
 		applicationGUI.show();
 	}
 

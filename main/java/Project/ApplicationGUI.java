@@ -1,12 +1,10 @@
 package Project;
-
 import javax.swing.*;
 import java.awt.*;
 
-
 public class ApplicationGUI {
-	private JTextField usernameField;
-	private JTextField passwordField;
+	private JTextField customernameField;
+	private JPasswordField passwordField;
 	private static JFrame appFrame;
 	private BankAccount bankAccount;
 	private JLabel nameLabel;
@@ -15,6 +13,7 @@ public class ApplicationGUI {
 	private CardLayout cardLayout;
 
 	public ApplicationGUI(String customerName, String customerID) {
+		CustomerServices.loadCustomerCredentials(); // Load credentials on startup
 		this.bankAccount = new BankAccount(customerName, customerID);
 		setupMainFrame();
 		setupCardLayout();
@@ -42,13 +41,13 @@ public class ApplicationGUI {
 		JPanel loginPanel = new JPanel();
 		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
 
-		usernameField = new JTextField("User name", 15);
+		customernameField = new JTextField("Customer name", 15);
 		passwordField = new JPasswordField("Password", 15);
 
 		JButton loginButton = new JButton("Login");
 		loginButton.addActionListener(e -> login());
 
-		loginPanel.add(usernameField);
+		loginPanel.add(customernameField);
 		loginPanel.add(passwordField);
 		loginPanel.add(loginButton);
 
@@ -65,18 +64,17 @@ public class ApplicationGUI {
 	}
 	private void setupLabels(JPanel parentPanel) {
 		nameLabel = new JLabel("Welcome. You're currently logged in as " + bankAccount.getcustomerName());
-		idLabel = new JLabel("UserID: " + bankAccount.getcustomerID());
+		idLabel = new JLabel("CustomerID: " + bankAccount.getcustomerID());
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.PAGE_AXIS));
 		labelPanel.add(nameLabel);
 		labelPanel.add(idLabel);
-		appFrame.add(labelPanel, BorderLayout.NORTH);
-
+		parentPanel.add(labelPanel, BorderLayout.NORTH); // Fixed the layout position
 	}
 
 	private void setupButtons(JPanel parentPanel) {
-		JButton btnShowBalance = Buttons.setupDepositButton(bankAccount);
-		JButton btnDeposit = Buttons.setupShowBalanceButton(bankAccount);
+		JButton btnDeposit = Buttons.setupDepositButton(bankAccount);
+		JButton btnShowBalance = Buttons.setupShowBalanceButton(bankAccount);
 		JButton btnWithdraw = Buttons.setupWithdrawButton(bankAccount);
 		JButton btnExit = Buttons.setupExitButton();
 
@@ -88,7 +86,7 @@ public class ApplicationGUI {
 		addButtonToPanel(buttonPanel, btnDeposit, gbc, 1);
 		addButtonToPanel(buttonPanel, btnWithdraw, gbc, 2);
 		addButtonToPanel(buttonPanel, btnExit, gbc, 3);
-		appFrame.add(buttonPanel, BorderLayout.CENTER);
+		parentPanel.add(buttonPanel, BorderLayout.CENTER); // Fixed the layout position
 	}
 
 	private GridBagConstraints createGbc() {

@@ -1,32 +1,49 @@
 package Project;
 
 import java.io.*;
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Arrays;
 
 
-public class UserServices{
-    public static void loadUserCredentials() {
+
+public class CustomerServices{
+    public static void loadCustomerCredentials() {
         File file = new File("C:\\Develop\\Eigenes");
         try {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String[] credentials = fileScanner.nextLine().split(";");
-                User userloaded = new User(credentials[0], credentials[1], new BankAccount());
-                addUser(userloaded);
+                if (credentials.length == 3) {
+                    String password = credentials[0];
+                    String customerName = credentials[1];
+                    String customerID = credentials[2];
+
+                    BankAccount bankAccount = new BankAccount(customerName, customerID);
+                    Customer customerLoaded = new Customer(customerName, password, bankAccount);
+                    Customer.getAllcustomers().put(customerName, customerLoaded);
+                } else {
+                    System.err.println("Invalid line format: " + Arrays.toString(credentials));
+                }
             }
             fileScanner.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
-    public static void writeUserToFile(User user) {
+
+    public static boolean validateLogin(String username, String password) {
+        Customer customer = Customer.getAllcustomers().get(username);
+        return customer != null && customer.getPassword().equals(password);
+    }
+
+
+
+    public static void writeCustomerToFile(Customer customer) {
         String dirName = "C:\\Develop\\Eigenes";
         try {
-            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(dirName + "\\userInformation.txt", true));
-            fileWriter.write(user.getUsername() + "," + user.getPassword());
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(dirName + "\\customerInformation.txt", true));
+            fileWriter.write(customer.getcustomername() + "," + customer.getPassword());
             fileWriter.newLine();
             fileWriter.close();
         } catch (IOException e) {
@@ -35,8 +52,8 @@ public class UserServices{
 
     }
 
-    public static void addUser(User usertoadd) {
-        User.getAllUsers();
+    public static void addCustomer(Customer customertoadd) {
+        Customer.getAllcustomers();
     }
 
 

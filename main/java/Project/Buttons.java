@@ -59,7 +59,7 @@ public class Buttons {
         btnShowBalance.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 double balance = TransactionsServices.getBalance(bankAccount);
-                JOptionPane.showMessageDialog(frame, "The balance is: " + balance + "€");
+                JOptionPane.showMessageDialog(ApplicationGUI.getAppFrame(), "The balance is: " + balance + "€");
 
             }
         });
