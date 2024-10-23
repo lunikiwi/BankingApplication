@@ -1,40 +1,40 @@
 package Project;
 
+
 public class TransactionsServices {
 
-    public static double getbalance() {
-        return BankAccount.accountBalance;
+    public static double getBalance(BankAccount account) {
+        return account.getAccountBalance();
 
     }
 
-    static void deposit(double amountIn) {
+    public static void deposit(BankAccount account, double amountIn) {
         if(amountIn > 0) {
-            BankAccount.accountBalance = BankAccount.accountBalance + amountIn;
-            BankAccount.previousTransaction = amountIn;
+            double newBalance = account.getAccountBalance() + amountIn;
+            account.setAccountBalance(newBalance);
+            account.setPreviousTransaction(amountIn);
         }
     }
 
-    static boolean withdraw(double amountOut) {
-        if(amountOut > BankAccount.accountBalance) {
+    public static boolean withdraw(BankAccount account, double amountOut) {
+        if (amountOut > account.getAccountBalance()) {
             System.out.println("Account balance too low");
             return false;
-        }
-        else {
-            BankAccount.accountBalance = BankAccount.accountBalance - amountOut;
-            BankAccount.previousTransaction = - amountOut;
+        } else {
+            account.setAccountBalance(account.getAccountBalance() - amountOut);
+            account.setPreviousTransaction(-amountOut);
             return true;
         }
     }
 
-    void getPreviousTransaction() {
+    public static void getPreviousTransaction(BankAccount account) {
+        double previousTransaction = account.getPreviousTransaction();
 
-        if(BankAccount.previousTransaction > 0) {
-            System.out.println("Deposited:" + BankAccount.previousTransaction);
-        }
-        else if(BankAccount.previousTransaction < 0) {
-            System.out.println("Withdrew:" + BankAccount.previousTransaction);
-        }
-        else {
+        if (previousTransaction > 0) {
+            System.out.println("Deposited: " + previousTransaction);
+        } else if (previousTransaction < 0) {
+            System.out.println("Withdrew: " + -previousTransaction);
+        } else {
             System.out.println("No transactions");
         }
     }

@@ -39,25 +39,7 @@ public class UserServices{
         User.getAllUsers();
     }
 
-    public static BankAccount authenticateUser() {
-        String usernameInput = consoleScanner.nextLine();
-        Map<String, User> usertoauthenticate = User.getAllUsers(); //makes no sense, need 1 user not map of users
 
-        if (usertoauthenticate != null && usertoauthenticate.equals(userpassword)) { //user instead of User!! big difference
-            return usertoauthenticate.getBankAccount();
-
-        }
-        else {
-
-            String name = consoleScanner.nextLine();
-            String randomID = generateRandomID();
-            BankAccount newAccount = new BankAccount(name, randomID);
-
-            User newUser = new User(usernameInput, "hardcodedpassword", newAccount);
-            return newUser.getBankAccount();
-        }
-
-    }
 
     public static String generateRandomID() {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

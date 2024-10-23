@@ -5,21 +5,16 @@ import java.util.*;
 public class User {
     private String username;
     private String password;
-    private BankAccount userbankAccount;
+    private BankAccount userBankAccount;
     private static Map<String, User> allUsers = new HashMap<>();
 
-    public User(String username, String password, BankAccount userbankAccount) {
+    public User(String username, String password, BankAccount userBankAccount) {
         this.username = username;
         this.password = password;
-        this.userbankAccount = userbankAccount;
-        UserServices.addUser(this);
+        this.userBankAccount = userBankAccount;
 
-        allUsers.put(username, this);
-
-        for (User user : allUsers.values()) {
-            UserServices.writeUserToFile(user);
-        }
     }
+
 
     public String getUsername() {
         return username;
@@ -34,7 +29,7 @@ public class User {
     }
 
     public BankAccount getBankAccount() {
-        return userbankAccount;
+        return userBankAccount;
     }
 
 

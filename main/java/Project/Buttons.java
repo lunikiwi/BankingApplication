@@ -4,14 +4,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Buttons {
-    public static JButton setupWithdrawButton() {
+    public static JButton setupWithdrawButton(BankAccount bankAccount) {
         JButton btnWithdraw = new JButton("Withdraw");
         btnWithdraw.addActionListener(e -> {
             String WithdrawStr = JOptionPane.showInputDialog(ApplicationGUI.getAppFrame(),
                     "Please enter the amount you want to withdraw:", "Withdraw", JOptionPane.PLAIN_MESSAGE);
             try {
                 double withdrawAmount = Double.parseDouble(WithdrawStr);
-                boolean success = TransactionsServices.withdraw(withdrawAmount);
+                boolean success = TransactionsServices.withdraw(bankAccount, withdrawAmount);
                 if (success) {
                     JOptionPane.showMessageDialog(ApplicationGUI.getAppFrame(), "Withdrawal of " + withdrawAmount + "€ successful.");
                 } else {
@@ -54,19 +54,19 @@ public class Buttons {
     }
 
 
-    public static JButton setupShowBalanceButton() {
+    public static JButton setupShowBalanceButton(BankAccount bankAccount) {
         JButton btnShowBalance = new JButton("Show account balance");
         btnShowBalance.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                double balance = TransactionsServices.getbalance();
-                JOptionPane.showMessageDialog(ApplicationGUI.getAppFrame() , "The balance is: " + balance + "€");
+                double balance = TransactionsServices.getBalance(bankAccount);
+                JOptionPane.showMessageDialog(frame, "The balance is: " + balance + "€");
 
             }
         });
         return btnShowBalance;
     }
 
-    public static JButton setupDepositButton() {
+    public static JButton setupDepositButton(BankAccount bankAccount) {
         //Button für B
         JButton btnDeposit = new JButton("Deposit");
         btnDeposit.addActionListener(e -> {
@@ -74,7 +74,7 @@ public class Buttons {
                     "Please enter the amount you want to deposit:" , "deposit", JOptionPane.PLAIN_MESSAGE);
             try {
                 double depositAmount = Double.parseDouble(depositStr);
-                TransactionsServices.deposit(depositAmount);
+                TransactionsServices.deposit(bankAccount, depositAmount);
                 JOptionPane.showMessageDialog(ApplicationGUI.getAppFrame(), "Deposited " + depositAmount + "€ successfully");
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(ApplicationGUI.getAppFrame(),

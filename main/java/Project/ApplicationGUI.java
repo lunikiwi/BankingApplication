@@ -3,6 +3,7 @@ package Project;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class ApplicationGUI {
 	private JTextField usernameField;
 	private JTextField passwordField;
@@ -10,13 +11,16 @@ public class ApplicationGUI {
 	private BankAccount bankAccount;
 	private JLabel nameLabel;
 	private JLabel idLabel;
+	private JPanel mainPanel;
+	private CardLayout cardLayout;
 
 	public ApplicationGUI(String customerName, String customerID) {
 		this.bankAccount = new BankAccount(customerName, customerID);
 		setupMainFrame();
-		setupLabels();
-		setupButtons();
+		setupCardLayout();
 		setupLoginWindow();
+		setupMainApplicationView();
+		show();
 	}
 
 	public static JFrame getAppFrame() {
@@ -28,14 +32,38 @@ public class ApplicationGUI {
 		appFrame.setLayout(new BorderLayout());
 	}
 
-	public void setupLoginWindow() {
-		usernameField = new JTextField("User name", 15);
-		usernameField.add(usernameField);
-		passwordField = new JPasswordField("Password", 15);
-		usernameField.add(passwordField);
+	private void setupCardLayout() {
+		cardLayout = new CardLayout();
+		mainPanel = new JPanel(cardLayout);
+		appFrame.add(mainPanel, BorderLayout.CENTER);
 	}
 
-	private void setupLabels() {
+	public void setupLoginWindow() {
+		JPanel loginPanel = new JPanel();
+		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
+
+		usernameField = new JTextField("User name", 15);
+		passwordField = new JPasswordField("Password", 15);
+
+		JButton loginButton = new JButton("Login");
+		loginButton.addActionListener(e -> login());
+
+		loginPanel.add(usernameField);
+		loginPanel.add(passwordField);
+		loginPanel.add(loginButton);
+
+		mainPanel.add(loginPanel, "login");
+	}
+
+	private void setupMainApplicationView() {
+		JPanel mainAppPanel = new JPanel(new BorderLayout());
+
+		setupLabels(mainAppPanel);
+		setupButtons(mainAppPanel);
+
+		mainPanel.add(mainAppPanel, "mainApp");
+	}
+	private void setupLabels(JPanel parentPanel) {
 		nameLabel = new JLabel("Welcome. You're currently logged in as " + bankAccount.getcustomerName());
 		idLabel = new JLabel("UserID: " + bankAccount.getcustomerID());
 		JPanel labelPanel = new JPanel();
@@ -46,10 +74,10 @@ public class ApplicationGUI {
 
 	}
 
-	private void setupButtons() {
-		JButton btnShowBalance = Buttons.setupDepositButton();
-		JButton btnDeposit = Buttons.setupShowBalanceButton();
-		JButton btnWithdraw = Buttons.setupWithdrawButton();
+	private void setupButtons(JPanel parentPanel) {
+		JButton btnShowBalance = Buttons.setupDepositButton(bankAccount);
+		JButton btnDeposit = Buttons.setupShowBalanceButton(bankAccount);
+		JButton btnWithdraw = Buttons.setupWithdrawButton(bankAccount);
 		JButton btnExit = Buttons.setupExitButton();
 
 		JPanel buttonPanel = new JPanel();
@@ -73,6 +101,12 @@ public class ApplicationGUI {
 	private void addButtonToPanel(JPanel panel, JButton button, GridBagConstraints gbc, int gridy) {
 		gbc.gridy = gridy;
 		panel.add(button, gbc);
+	}
+
+	private void login() {
+		// Perform login logic here
+		// If login is successful, switch to main application view
+		cardLayout.show(mainPanel, "mainApp");
 	}
 
 	public void show() {
