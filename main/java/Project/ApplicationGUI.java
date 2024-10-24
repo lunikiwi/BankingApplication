@@ -13,7 +13,7 @@ public class ApplicationGUI {
 	private CardLayout cardLayout;
 
 	public ApplicationGUI(String customerName, String customerID) {
-		CustomerServices.loadCustomerCredentials(); // Load credentials on startup
+		CustomerServices.loadCustomerCredentials();
 		this.bankAccount = new BankAccount(customerName, customerID);
 		setupMainFrame();
 		setupCardLayout();
@@ -42,7 +42,41 @@ public class ApplicationGUI {
 		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
 
 		customernameField = new JTextField("Customer name", 15);
+		customernameField.setForeground(Color.GRAY);
+		customernameField.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusGained(java.awt.event.FocusEvent evt) {
+				if (customernameField.getText().equals("Customer name")) {
+					customernameField.setText("");
+					customernameField.setForeground(Color.BLACK);
+				}
+			}
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				if (customernameField.getText().isEmpty()) {
+					customernameField.setForeground(Color.GRAY);
+					customernameField.setText("Customer name");
+				}
+			}
+		});
+
 		passwordField = new JPasswordField("Password", 15);
+		passwordField.setForeground(Color.GRAY);
+		passwordField.setEchoChar((char) 0); // Show the placeholder text
+		passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusGained(java.awt.event.FocusEvent evt) {
+				if (new String(passwordField.getPassword()).equals("Password")) {
+					passwordField.setText("");
+					passwordField.setForeground(Color.BLACK);
+					passwordField.setEchoChar('\u2022'); // Set the echo char to hide the password
+				}
+			}
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				if (new String(passwordField.getPassword()).isEmpty()) {
+					passwordField.setForeground(Color.GRAY);
+					passwordField.setText("Password");
+					passwordField.setEchoChar((char) 0); // Show the placeholder text
+				}
+			}
+		});
 
 		JButton loginButton = new JButton("Login");
 		loginButton.addActionListener(e -> login());
@@ -69,7 +103,7 @@ public class ApplicationGUI {
 		labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.PAGE_AXIS));
 		labelPanel.add(nameLabel);
 		labelPanel.add(idLabel);
-		parentPanel.add(labelPanel, BorderLayout.NORTH); // Fixed the layout position
+		parentPanel.add(labelPanel, BorderLayout.NORTH);
 	}
 
 	private void setupButtons(JPanel parentPanel) {
@@ -86,7 +120,7 @@ public class ApplicationGUI {
 		addButtonToPanel(buttonPanel, btnDeposit, gbc, 1);
 		addButtonToPanel(buttonPanel, btnWithdraw, gbc, 2);
 		addButtonToPanel(buttonPanel, btnExit, gbc, 3);
-		parentPanel.add(buttonPanel, BorderLayout.CENTER); // Fixed the layout position
+		parentPanel.add(buttonPanel, BorderLayout.CENTER);
 	}
 
 	private GridBagConstraints createGbc() {
@@ -102,9 +136,20 @@ public class ApplicationGUI {
 	}
 
 	private void login() {
-		// Perform login logic here
-		// If login is successful, switch to main application view
-		cardLayout.show(mainPanel, "mainApp");
+		String enteredUsername = customernameField.getText();
+		String enteredPassword = new String(passwordField.getPassword());
+
+		if (CustomerServices.validateLogin(enteredUsername, enteredPassword)) {
+			Customer authenticatedCustomer = Customer.getAllcustomers().get(enteredUsername);
+			this.bankAccount = authenticatedCustomer.getBankAccount();
+
+			nameLabel.setText("Welcome. You're currently logged in as " + bankAccount.getcustomerName());
+			idLabel.setText("CustomerID: " + bankAccount.getcustomerID());
+
+			cardLayout.show(mainPanel, "mainApp");
+		} else {
+			JOptionPane.showMessageDialog(appFrame, "Invalid credentials. Please try again.", "Login Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	public void show() {
