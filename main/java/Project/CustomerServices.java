@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class CustomerServices{
     public static void loadCustomerCredentials() {
-        File file = new File("C:\\Develop\\Eigenes");
+        File file = new File("C:\\Develop\\Eigenes\\customerInformation.txt");
         try {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
